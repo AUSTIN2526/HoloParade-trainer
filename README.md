@@ -5,7 +5,7 @@ Welcome to the trainer for HoloParade!
 
 ## Download(exe)  
 You can download the trainer from the following link:
-[Download Holocure Trainer](https://github.com/AUSTIN2526/HoloParade-trainer/releases)
+[Download HoloParade Trainer](https://github.com/AUSTIN2526/HoloParade-trainer/releases)
 ```
 https://github.com/AUSTIN2526/HoloParade-trainer/releases
 ```
