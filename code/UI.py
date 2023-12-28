@@ -13,34 +13,38 @@ class Ui_Form:
             'en': 'en'
         }
         self.language = language_mapping.get(language, 'en')
-
         # UI text
         ui_data = {
             'zh_TW': {
                 'windows_name': 'HoloParade修改器 by AUSTIN2526',
                 'info': '【啟動遊戲後按偵測按鈕遊戲即可啟用功能】',
                 'detect_button': '偵測遊戲',
-                'group_titles': ['♠ 動態修改區 ♠'],
+                'group_titles': ['♠ UR/SR 修改 ♠', '♠ SR/R 修改 ♠', '♠ 關卡修改 ♠'],
                 'group_names': [
-                    ['無限能量'],
+                    ['三期生', 'Gamers', '零期生', 'En組(神話)'],
+                    ['三期生', 'Gamers', '零期生', 'En組(神話)'],
+                    ['無限能量', '無限抽獎券']
                 ]
             },
-            'en':{
+            'en': {
                 'windows_name': 'HoloParade Trainer by AUSTIN2526',
                 'info': '【Activate features by pressing the detection button after starting the game】',
                 'detect_button': 'Detect Game',
-                'group_titles': ['♠ Dynamic Function ♠'],
+                'group_titles': ['♠ UR/SR Modification ♠', '♠ SR/R Modification ♠', '♠ Stage Modification ♠'],
                 'group_names': [
-                    ['Infinite Motivation'],
+                    ['3rd Generation', 'Gamers', 'Zero Generation', 'Myth'],
+                    ['3rd Generation', 'Gamers', 'Zero Generation', 'Myth'],
+                    ['Infinite Motivation', 'Infinite Lottery Gacha']
                 ]
             }
         }
         self.ui_text = ui_data[self.language]
+
         
         # UI size
         self.object_size = {
-            'zh_TW': (500, 280, 120),
-            'en': (780, 280, 180)
+            'zh_TW': (500, 230, 120),
+            'en': (650, 230, 180)
         }
         self.w, self.h, self.space = self.object_size[self.language]
 

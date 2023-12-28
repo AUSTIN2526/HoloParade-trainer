@@ -65,7 +65,6 @@ class AppWindow(QWidget):
     def find_windows(self):
         try:
             self.windows = Pymem("HoloParade.exe")
-            self.game_module = module_from_name(self.windows.process_handle, "mono-2.0-bdwgc.dll").lpBaseOfDll
             for functions in self.ui.groups:
                 for function in functions:
                     function.setEnabled(True)
@@ -83,23 +82,34 @@ class AppWindow(QWidget):
         t.start()
 
     def dynamic_modify(self, parameter):
+        # Unpack parameters
         title, name = parameter
-        checkbox, modify_data = self.modify_data[title][name]
-        value, address, offsets, interlock = modify_data.values()
-        if interlock:
-            lock = [item for item in self.groups[1] if item is not checkbox][0]
-            lock.setChecked(False)
 
-        # Modify memory
+        # Extract data from the modification dictionary
+        checkbox, modify_data = self.modify_data[title][name]
+        value, dll_address, offsets, dll_name = modify_data.values()
+
+        # Get the base address of the game module
+        game_module = module_from_name(self.windows.process_handle, dll_name).lpBaseOfDll
+        base_address = game_module + dll_address
+
+        # Modify memory while the checkbox is checked
         while checkbox.isChecked():
             try:
-                addr = self.calculate_address(self.game_module + address, offsets)
-                
-                if self.windows.read_float(addr) > 0:
-                    
-                    self.windows.write_float(addr, value)
+                # Calculate the memory address based on the base address and offsets
+                addr = self.calculate_address(base_address, offsets)
+
+                # Check if the value is a float
+                if isinstance(value, float):
+                    current_value = self.windows.read_float(addr)
+                    if current_value > 1:
+                        self.windows.write_float(addr, value)
+                else:
+                    self.windows.write_int(addr, value)
+
             except:
                 pass
+    
       
     def calculate_address(self, address, offsets):
         addr = self.windows.read_longlong(address)
